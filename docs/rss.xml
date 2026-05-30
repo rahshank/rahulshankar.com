@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+<channel>
+  <title>Rahul Shankar</title>
+  <link>https://rahulshankar.com</link>
+  <description>Writing and projects by Rahul Shankar.</description>
+  <lastBuildDate>2026-05-30</lastBuildDate>
+  <item>
+    <title>Ghosts of Bombay</title>
+    <link>https://rahulshankar.com/ghosts-of-bombay/</link>
+    <guid>https://rahulshankar.com/ghosts-of-bombay/</guid>
+    <pubDate>2024-05-05</pubDate>
+    <description>Notes on Bombay, memory, food, and inheritance.</description>
+  </item>
+</channel>
+</rss>

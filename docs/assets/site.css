@@ -1,0 +1,146 @@
+:root {
+  --bg: #fbfaf7;
+  --ink: #1f2523;
+  --muted: #66706b;
+  --line: #d9d4ca;
+  --accent: #7b2e2f;
+  --max: 720px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+body {
+  margin: 0;
+}
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.18em;
+}
+
+.site {
+  margin: 0 auto;
+  max-width: var(--max);
+  padding: 44px 24px 72px;
+}
+
+.masthead {
+  align-items: baseline;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  gap: 18px;
+  justify-content: space-between;
+  margin-bottom: 56px;
+  padding-bottom: 16px;
+}
+
+.brand {
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.92rem;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.nav {
+  display: flex;
+  gap: 14px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.78rem;
+}
+
+.nav a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.eyebrow,
+.meta,
+.footer {
+  color: var(--muted);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.82rem;
+}
+
+h1,
+h2 {
+  line-height: 1.12;
+}
+
+h1 {
+  font-size: clamp(2.2rem, 9vw, 4.2rem);
+  margin: 0 0 22px;
+}
+
+h2 {
+  font-size: 1.25rem;
+  margin: 44px 0 10px;
+}
+
+p,
+ul,
+ol,
+blockquote {
+  margin: 0 0 1.05rem;
+}
+
+ul,
+ol {
+  padding-left: 1.25rem;
+}
+
+blockquote {
+  border-left: 3px solid var(--line);
+  color: #4c5450;
+  margin: 1.6rem 0;
+  padding-left: 1rem;
+}
+
+.article-title {
+  margin-top: 8px;
+}
+
+.hero-image {
+  margin: 32px 0 8px;
+  width: 100%;
+}
+
+.caption {
+  color: var(--muted);
+  font-size: 0.82rem;
+  margin-bottom: 36px;
+}
+
+.footer {
+  border-top: 1px solid var(--line);
+  margin-top: 64px;
+  padding-top: 18px;
+}
+
+@media (max-width: 620px) {
+  html {
+    font-size: 17px;
+  }
+
+  .site {
+    padding: 28px 18px 56px;
+  }
+
+  .masthead {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 42px;
+  }
+}
