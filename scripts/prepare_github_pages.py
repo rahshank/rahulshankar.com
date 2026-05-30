@@ -24,6 +24,7 @@ def main() -> None:
         shutil.rmtree(DOCS)
     shutil.copytree(PUBLIC, DOCS)
     (DOCS / ".nojekyll").write_text("", encoding="utf-8")
+    subprocess.run([sys.executable, str(BUILD)], cwd=ROOT, check=True)
     print(f"Prepared GitHub Pages output in {DOCS}")
 
 

@@ -75,6 +75,8 @@ def markdown_to_html(markdown: str) -> str:
             rendered.append(f"<h2>{inline(first[3:].strip())}</h2>")
         elif first.startswith("# "):
             rendered.append(f"<h1>{inline(first[2:].strip())}</h1>")
+        elif first in {"---", "***"}:
+            rendered.append("<hr>")
         elif all(line.strip().startswith("- ") for line in lines):
             items = "\n".join(
                 f"<li>{inline(line.strip()[2:].strip())}</li>" for line in lines
