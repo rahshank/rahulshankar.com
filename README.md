@@ -48,6 +48,8 @@ Prepare GitHub Pages output:
 python3 scripts/prepare_github_pages.py
 ```
 
+This builds `docs/` with the temporary GitHub Pages base path `/rahulshankar.com`. For the final custom-domain deployment, rebuild without `SITE_BASE_PATH`.
+
 Render screenshots for visual inspection:
 
 ```sh

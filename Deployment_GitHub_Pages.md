@@ -50,6 +50,8 @@ Do not delete MX records or email-related TXT/CNAME records unless intentionally
 9. Wait for DNS and HTTPS to settle.
 10. Only then consider cancelling Ghost/Squarespace website services.
 
+For the temporary project URL `https://rahshank.github.io/rahulshankar.com/`, `docs/` is built with `SITE_BASE_PATH=rahulshankar.com`. Before switching to the live custom domain, rebuild `docs/` without the base path so root-relative links point to `rahulshankar.com`.
+
 ## Authentication path
 Use the official GitHub CLI for the first push if it is available. If it is not installed globally, install a temporary local copy into `.tools/gh/` and keep `.tools/` out of Git.
 
@@ -60,4 +62,5 @@ This is preferred over pasting a token into chat because GitHub CLI supports a o
 - Squarespace DNS warning about MX records: https://support.squarespace.com/hc/en-us/articles/205812378-Connecting-a-third-party-domain-to-your-Squarespace-site
 
 ## Change log
+- 2026-05-30: Documented the temporary GitHub Pages base path.
 - 2026-05-30: Created initial GitHub Pages deployment note.

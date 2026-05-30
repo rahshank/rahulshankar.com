@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import html
+import os
 import re
 import shutil
 from dataclasses import dataclass
@@ -15,6 +16,16 @@ SOURCE = ROOT / "source"
 PUBLIC = ROOT / "public"
 SITE_TITLE = "Rahul Shankar"
 SITE_URL = "https://rahulshankar.com"
+BASE_PATH = os.environ.get("SITE_BASE_PATH", "").strip("/")
+
+
+def site_path(path: str) -> str:
+    if path.startswith(("http://", "https://", "mailto:", "#")):
+        return path
+    normalized = "/" + path.lstrip("/")
+    if not BASE_PATH:
+        return normalized
+    return f"/{BASE_PATH}{normalized}"
 
 
 @dataclass
@@ -86,7 +97,7 @@ def inline(text: str) -> str:
     escaped = html.escape(text)
     escaped = re.sub(
         r"\[([^\]]+)\]\(([^)]+)\)",
-        lambda m: f'<a href="{html.escape(m.group(2), quote=True)}">{m.group(1)}</a>',
+        lambda m: f'<a href="{html.escape(site_path(m.group(2)), quote=True)}">{m.group(1)}</a>',
         escaped,
     )
     escaped = re.sub(r"`([^`]+)`", r"<code>\1</code>", escaped)
@@ -105,16 +116,16 @@ def page_shell(title: str, content: str, path: str = "/", description: str = "")
   <title>{html.escape(full_title)}</title>
   <meta name="description" content="{desc}">
   <link rel="canonical" href="{canonical}">
-  <link rel="alternate" type="application/rss+xml" title="{SITE_TITLE}" href="/rss.xml">
-  <link rel="stylesheet" href="/assets/site.css">
+  <link rel="alternate" type="application/rss+xml" title="{SITE_TITLE}" href="{site_path("/rss.xml")}">
+  <link rel="stylesheet" href="{site_path("/assets/site.css")}">
 </head>
 <body>
   <div class="site">
     <header class="masthead">
-      <a class="brand" href="/">Rahul Shankar</a>
+      <a class="brand" href="{site_path("/")}">Rahul Shankar</a>
       <nav class="nav" aria-label="Primary">
-        <a href="/writing/">Writing</a>
-        <a href="/about/">About</a>
+        <a href="{site_path("/writing/")}">Writing</a>
+        <a href="{site_path("/about/")}">About</a>
       </nav>
     </header>
     {content}
@@ -127,7 +138,7 @@ def page_shell(title: str, content: str, path: str = "/", description: str = "")
 
 def render_home(doc: Document, posts: List[Document]) -> str:
     latest = "\n".join(
-        f'<li><a href="{post.url_path}">{html.escape(post.title)}</a>'
+        f'<li><a href="{site_path(post.url_path)}">{html.escape(post.title)}</a>'
         f' <span class="meta">{html.escape(post.meta.get("date", ""))}</span></li>'
         for post in sorted(posts, key=lambda item: item.meta.get("date", ""), reverse=True)
     )
@@ -160,7 +171,7 @@ def render_article(doc: Document) -> str:
     hero = ""
     if doc.meta.get("hero_image"):
         hero = (
-            f'<img class="hero-image" src="{html.escape(doc.meta["hero_image"], quote=True)}" '
+            f'<img class="hero-image" src="{html.escape(site_path(doc.meta["hero_image"]), quote=True)}" '
             f'alt="{html.escape(doc.meta.get("hero_alt", doc.title), quote=True)}">'
         )
         if doc.meta.get("hero_caption"):
@@ -195,7 +206,7 @@ def copy_assets() -> None:
 
 def render_writing_index(posts: List[Document]) -> None:
     items = "\n".join(
-        f'<li><a href="{post.url_path}">{html.escape(post.title)}</a>'
+        f'<li><a href="{site_path(post.url_path)}">{html.escape(post.title)}</a>'
         f' <span class="meta">{html.escape(post.meta.get("date", ""))}</span>'
         f'<p>{html.escape(post.meta.get("summary", ""))}</p></li>'
         for post in sorted(posts, key=lambda item: item.meta.get("date", ""), reverse=True)
