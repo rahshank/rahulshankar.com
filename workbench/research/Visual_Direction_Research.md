@@ -52,6 +52,8 @@ Track visual choices for the personal site before changing the system.
 | Andy Matuschak | Uses a crisp professional identity, then expands into current focus, belief, funding/work context, and prior roles. |
 | Interconnected | Feels like a personal publication rather than a portfolio; dated URLs and post pages carry the archive. |
 | Ribbonfarm | The archive posture matters more than the ornamental layer; old writing can be preserved without pretending it is current. |
+| DDC / Ghosts of Bombay Pinterest | Points toward night street, public rooms, transit, music, poster illustration, roadside food, and saturated accent color over polished restaurant branding. |
+| Ghosts of Bombay Instagram | Confirms the current public face: pop-up documentation, menu cards, charity/community events, food close-ups, and a navy/coral mark. |
 
 ## Pinterest Board
 Source: [DDC / Ghosts of Bombay](https://www.pinterest.com/Jakebluras/ddc-ghosts-of-bombay/)
@@ -73,8 +75,10 @@ Use this as the primary visual source once accessible. Pull:
 - image density and cropping patterns
 - any designer-session notes visible in pin titles/descriptions
 
+Derived read: [Pinterest DDC / Ghosts of Bombay Read](Pinterest_DDC_Ghosts_Of_Bombay_Read.md)
+
 ## Instagram
-Source: Ghosts of Bombay Instagram page, exact handle needed.
+Source: [Ghosts of Bombay Instagram](https://www.instagram.com/ghostsofbombay/)
 
 Use this as the public-facing visual source once accessible. Pull:
 - recurring food/photo colors
@@ -83,7 +87,10 @@ Use this as the public-facing visual source once accessible. Pull:
 - image crops and grid rhythm
 - how Ghosts of Bombay already describes itself in captions and bio
 
+Derived read: [Instagram Ghosts of Bombay Read](Instagram_Ghosts_Of_Bombay_Read.md)
+
 ## Change Log
+- 2026-05-30: Added exact Ghosts of Bombay Instagram source and first derived read.
 - 2026-05-30: Added Ghosts of Bombay Instagram as a public-facing visual source.
 - 2026-05-30: Added the DDC / Ghosts of Bombay Pinterest board as the primary visual source once accessible.
 - 2026-05-30: Created first visual research surface.
