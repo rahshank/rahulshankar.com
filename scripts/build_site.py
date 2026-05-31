@@ -167,6 +167,7 @@ def page_shell(title: str, content: str, path: str = "/", description: str = "")
       <a class="brand" href="{site_path("/")}">Rahul Shankar</a>
       <nav class="nav" aria-label="Primary">
         <a href="{site_path("/writing/")}">Writing</a>
+        <a href="{site_path("/notebook/")}">Notebook</a>
         <a href="{site_path("/about/")}">About</a>
       </nav>
     </header>
@@ -178,11 +179,11 @@ def page_shell(title: str, content: str, path: str = "/", description: str = "")
 """
 
 
-def render_home(doc: Document, posts: List[Document]) -> str:
+def render_home(doc: Document, entries: List[Document]) -> str:
     latest = "\n".join(
-        f'<li><a href="{site_path(post.url_path)}">{html.escape(post.title)}</a>'
-        f' <span class="meta">{html.escape(post.meta.get("date", ""))}</span></li>'
-        for post in sorted(posts, key=lambda item: item.meta.get("date", ""), reverse=True)
+        f'<li><a href="{site_path(entry.url_path)}">{html.escape(entry.title)}</a>'
+        f' <span class="meta">{html.escape(entry.meta.get("date", ""))}</span></li>'
+        for entry in sorted(entries, key=lambda item: item.meta.get("date", ""), reverse=True)
     )
     content = f"""
 <main>
@@ -246,37 +247,42 @@ def copy_assets() -> None:
     shutil.copytree(src, dst)
 
 
-def render_writing_index(posts: List[Document]) -> None:
+def render_collection_index(
+    title: str,
+    slug: str,
+    description: str,
+    entries: List[Document],
+) -> None:
     items = "\n".join(
-        f'<li><a href="{site_path(post.url_path)}">{html.escape(post.title)}</a>'
-        f' <span class="meta">{html.escape(post.meta.get("date", ""))}</span>'
-        f'<p>{html.escape(post.meta.get("summary", ""))}</p></li>'
-        for post in sorted(posts, key=lambda item: item.meta.get("date", ""), reverse=True)
+        f'<li><a href="{site_path(entry.url_path)}">{html.escape(entry.title)}</a>'
+        f' <span class="meta">{html.escape(entry.meta.get("date", ""))}</span>'
+        f'<p>{html.escape(entry.meta.get("summary", ""))}</p></li>'
+        for entry in sorted(entries, key=lambda item: item.meta.get("date", ""), reverse=True)
     )
     content = f"""
 <main>
-  <h1>Writing</h1>
+  <h1>{html.escape(title)}</h1>
   <ul>{items}</ul>
 </main>
 """
-    out = PUBLIC / "writing" / "index.html"
+    out = PUBLIC / slug / "index.html"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(
-        page_shell("Writing", content, "/writing/", "Writing by Rahul Shankar."),
+        page_shell(title, content, f"/{slug}/", description),
         encoding="utf-8",
     )
 
 
-def render_rss(posts: List[Document]) -> None:
+def render_rss(entries: List[Document]) -> None:
     items = "\n".join(
         f"""  <item>
-    <title>{html.escape(post.title)}</title>
-    <link>{SITE_URL}{post.url_path}</link>
-    <guid>{SITE_URL}{post.url_path}</guid>
-    <pubDate>{html.escape(post.meta.get("date", ""))}</pubDate>
-    <description>{html.escape(post.meta.get("summary", ""))}</description>
+    <title>{html.escape(entry.title)}</title>
+    <link>{SITE_URL}{entry.url_path}</link>
+    <guid>{SITE_URL}{entry.url_path}</guid>
+    <pubDate>{html.escape(entry.meta.get("date", ""))}</pubDate>
+    <description>{html.escape(entry.meta.get("summary", ""))}</description>
   </item>"""
-        for post in sorted(posts, key=lambda item: item.meta.get("date", ""), reverse=True)
+        for entry in sorted(entries, key=lambda item: item.meta.get("date", ""), reverse=True)
     )
     rss = f"""<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0">
@@ -308,18 +314,30 @@ def main() -> None:
     posts = load_documents(
         list((SOURCE / "posts").glob("*.md")) + list((SOURCE / "posts").glob("*.html"))
     )
+    notes = load_documents(
+        list((SOURCE / "notes").glob("*.md")) + list((SOURCE / "notes").glob("*.html"))
+    )
+    entries = posts + notes
 
     for page in pages:
         template = page.meta.get("template", "page")
-        html_text = render_home(page, posts) if template == "home" else render_page(page)
+        html_text = render_home(page, entries) if template == "home" else render_page(page)
         write_output(page, html_text)
 
     for post in posts:
         write_output(post, render_article(post))
+    for note in notes:
+        write_output(note, render_article(note))
 
-    render_writing_index(posts)
-    render_rss(posts)
-    print(f"Built {len(pages)} pages and {len(posts)} posts into {PUBLIC}")
+    render_collection_index("Writing", "writing", "Writing by Rahul Shankar.", posts)
+    render_collection_index(
+        "Notebook",
+        "notebook",
+        "Field notes, observations, and shorter public fragments by Rahul Shankar.",
+        notes,
+    )
+    render_rss(entries)
+    print(f"Built {len(pages)} pages, {len(posts)} posts, and {len(notes)} notes into {PUBLIC}")
 
 
 if __name__ == "__main__":

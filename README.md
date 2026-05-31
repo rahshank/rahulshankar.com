@@ -43,7 +43,7 @@ This site currently uses a small custom static pipeline:
 | `workbench/` notes | keeps planning and inspiration close to the project without mixing them with source/build files |
 | `public/` and `previews/` ignored | local outputs can be regenerated and should not clutter commits |
 
-The likely next structural addition is `source/notes/` plus a generated `/notes/` index if Rahul wants a public notebook section for short observations.
+The site now has `source/notes/` plus a generated `/notebook/` index for short observations, travel notes, and public field notes.
 
 ## Information architecture
 The current target navigation is:
@@ -54,7 +54,7 @@ The current target navigation is:
 | `Notebook` | Shorter field notes, observations, travel notes, aesthetic notes, and public fragments from Fieldwork |
 | `About` | Current intro, biography, and project orientation |
 
-`A week in Beijing` is the first likely reclassification candidate: it reads more like a field note or travel note than a formal essay, so it should probably live in `Notebook` once that section exists.
+`A week in Beijing` now lives in `Notebook` while keeping its original `/beijing/` URL.
 
 ## Current workflow
 Run the builder from this folder:
@@ -113,3 +113,4 @@ python3 -m http.server 8765 -d public
 - 2026-05-30: Added public Ghost content importer.
 - 2026-05-30: Added intro and visual direction research surfaces.
 - 2026-05-30: Moved planning and research notes into `workbench/` and documented the path choices.
+- 2026-05-30: Added `Notebook` and moved `A week in Beijing` into `source/notes/`.

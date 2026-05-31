@@ -11,6 +11,7 @@ const pages = [
   ["index.html", "home.png"],
   ["ghosts-of-bombay/index.html", "ghosts-of-bombay.png"],
   ["writing/index.html", "writing.png"],
+  ["notebook/index.html", "notebook.png"],
 ];
 
 async function htmlWithInlineCss(relativePath) {

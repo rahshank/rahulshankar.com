@@ -13,6 +13,7 @@ PAGES = {
     "index.html": "home.html",
     "ghosts-of-bombay/index.html": "ghosts-of-bombay.html",
     "writing/index.html": "writing.html",
+    "notebook/index.html": "notebook.html",
 }
 
 
@@ -40,4 +41,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

@@ -11,6 +11,10 @@ I write about food, cities, memory, technology, and the practical work of buildi
 
 - [Ghosts of Bombay](/ghosts-of-bombay/)
 
+## Notebook
+
+- [A week in Beijing](/beijing/)
+
 ## Projects
 
 - Ghosts of Bombay
