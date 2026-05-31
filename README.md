@@ -9,21 +9,41 @@ The emerging shape is a low-frequency living static site: not a paid membership 
 | Path | Role | Status |
 | --- | --- | --- |
 | `README.md` | Arena orientation and current migration thinking | current |
-| `Website_Migration_Notes.md` | Working notes for architecture, migration, and decisions | working draft |
-| `Website_Inspiration_Log.md` | Short table of reference sites and borrowable patterns | current |
-| `Initial_Launch_Plan.md` | First publish slice and GitHub Pages test path | current |
-| `Deployment_GitHub_Pages.md` | First deployment path and Squarespace DNS implications | working draft |
-| `source/` | Local source files for pages, posts, and assets | working draft |
+| `source/` | Local source files for pages, posts, notes, and assets | working draft |
+| `scripts/` | Site builder, importers, link checks, and preview helpers | working draft |
 | `raw/ghost-public/` | Raw public Ghost API exports used by the importer | reference |
+| `docs/` | GitHub Pages-ready generated output | generated, tracked for publish |
+| `public/` | Local generated static website output | generated, ignored |
+| `previews/` | Generated preview inputs/screenshots for visual inspection | generated, ignored |
+| `workbench/` | Planning, research, and decision notes for the site | working |
+| `workbench/planning/Website_Migration_Notes.md` | Working notes for architecture, migration, and decisions | working draft |
+| `workbench/planning/Initial_Launch_Plan.md` | First publish slice and GitHub Pages test path | current |
+| `workbench/planning/Deployment_GitHub_Pages.md` | First deployment path and Squarespace DNS implications | working draft |
+| `workbench/research/Website_Inspiration_Log.md` | Short table of reference sites and borrowable patterns | current |
+| `workbench/research/Homepage_Intro_Research.md` | Working surface for homepage/about intro directions | working draft |
+| `workbench/research/Visual_Direction_Research.md` | Working surface for type, color, layout, and visual references | working draft |
+| `workbench/README.md` | Workbench boundary and map | current |
 | `scripts/build_site.py` | Custom Python generator from source files to static output | working draft |
 | `scripts/check_site.py` | Local generated-site link checker | working draft |
 | `scripts/import_ghost_public.py` | Imports public Ghost posts/pages and images into local source files | working draft |
 | `scripts/prepare_file_previews.py` | Creates standalone preview HTML files with CSS inlined | working draft |
 | `scripts/prepare_github_pages.py` | Copies generated output into `docs/` for GitHub Pages | working draft |
 | `scripts/render_previews.cjs` | Headless visual renderer for generated pages | working draft |
-| `public/` | Local generated static website output | generated, ignored |
-| `docs/` | GitHub Pages-ready generated output | generated, track for publish |
-| `previews/` | Generated preview inputs/screenshots for visual inspection | generated |
+
+## Path chosen
+This site currently uses a small custom static pipeline:
+
+| Choice | Why |
+| --- | --- |
+| Local source files in `source/` | keeps writing and assets editable without a CMS |
+| Custom Python builder | enough control for the current site without adopting Astro, Eleventy, or a larger framework yet |
+| Public Ghost importer | preserves the old public archive and images from Ghost while moving the working copy local |
+| Generated `docs/` output | lets GitHub Pages publish without GitHub Actions for the first version |
+| GitHub Pages temporary URL | gives a safe preview before changing `rahulshankar.com` DNS in Squarespace |
+| `workbench/` notes | keeps planning and inspiration close to the project without mixing them with source/build files |
+| `public/` and `previews/` ignored | local outputs can be regenerated and should not clutter commits |
+
+The likely next structural addition is `source/notes/` plus a generated `/notes/` index if Rahul wants a public notebook section for short observations.
 
 ## Current workflow
 Run the builder from this folder:
@@ -80,3 +100,5 @@ python3 -m http.server 8765 -d public
 - 2026-05-30: Added native GitHub Pages `docs/` output preparation.
 - 2026-05-30: Added a short website inspiration log.
 - 2026-05-30: Added public Ghost content importer.
+- 2026-05-30: Added intro and visual direction research surfaces.
+- 2026-05-30: Moved planning and research notes into `workbench/` and documented the path choices.
