@@ -43,6 +43,7 @@ Track visual choices for the personal site before changing the system.
 | Interconnected | dated posts, old-web navigation, voice-forward blogging surface |
 | Rahul's migrated Ghost posts | image palette, article rhythm, old tags, strongest visual anchors |
 | Pinterest board: DDC / Ghosts of Bombay | designer-session inspiration, color palette, texture, references, and mood for Ghosts of Bombay |
+| Ghosts of Bombay Instagram | public-facing food/event imagery, type treatments, room feel, recurring colors, caption voice |
 
 ## Early Reference Read
 | Source | Useful Clue |
@@ -64,6 +65,17 @@ Use this as the primary visual source once accessible. Pull:
 - image density and cropping patterns
 - any designer-session notes visible in pin titles/descriptions
 
+## Instagram
+Source: Ghosts of Bombay Instagram page, exact handle needed.
+
+Use this as the public-facing visual source once accessible. Pull:
+- recurring food/photo colors
+- event/table/room atmosphere
+- flyer or story typography
+- image crops and grid rhythm
+- how Ghosts of Bombay already describes itself in captions and bio
+
 ## Change Log
+- 2026-05-30: Added Ghosts of Bombay Instagram as a public-facing visual source.
 - 2026-05-30: Added the DDC / Ghosts of Bombay Pinterest board as the primary visual source once accessible.
 - 2026-05-30: Created first visual research surface.
