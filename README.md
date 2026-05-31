@@ -14,8 +14,10 @@ The emerging shape is a low-frequency living static site: not a paid membership 
 | `Initial_Launch_Plan.md` | First publish slice and GitHub Pages test path | current |
 | `Deployment_GitHub_Pages.md` | First deployment path and Squarespace DNS implications | working draft |
 | `source/` | Local source files for pages, posts, and assets | working draft |
+| `raw/ghost-public/` | Raw public Ghost API exports used by the importer | reference |
 | `scripts/build_site.py` | Custom Python generator from source files to static output | working draft |
 | `scripts/check_site.py` | Local generated-site link checker | working draft |
+| `scripts/import_ghost_public.py` | Imports public Ghost posts/pages and images into local source files | working draft |
 | `scripts/prepare_file_previews.py` | Creates standalone preview HTML files with CSS inlined | working draft |
 | `scripts/prepare_github_pages.py` | Copies generated output into `docs/` for GitHub Pages | working draft |
 | `scripts/render_previews.cjs` | Headless visual renderer for generated pages | working draft |
@@ -28,6 +30,12 @@ Run the builder from this folder:
 
 ```sh
 python3 scripts/build_site.py
+```
+
+Refresh public Ghost content:
+
+```sh
+python3 scripts/import_ghost_public.py
 ```
 
 Check the generated site:
@@ -71,3 +79,4 @@ python3 -m http.server 8765 -d public
 - 2026-05-30: Added initial launch plan for GitHub Pages test publishing.
 - 2026-05-30: Added native GitHub Pages `docs/` output preparation.
 - 2026-05-30: Added a short website inspiration log.
+- 2026-05-30: Added public Ghost content importer.

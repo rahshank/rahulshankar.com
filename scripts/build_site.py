@@ -28,6 +28,42 @@ def site_path(path: str) -> str:
     return f"/{BASE_PATH}{normalized}"
 
 
+def normalize_url(url: str) -> str:
+    if url.startswith(("http://", "https://", "mailto:", "#")):
+        return url
+    if url.startswith("//"):
+        return f"https:{url}"
+    if re.match(r"^[A-Za-z0-9.-]+\.[A-Za-z]{2,}(/.*)?$", url):
+        return f"https://{url}"
+    if url.startswith("/"):
+        return site_path(url)
+    return url
+
+
+def normalize_html_urls(html_text: str) -> str:
+    def replace_attr(match: re.Match[str]) -> str:
+        attr = match.group(1)
+        quote = match.group(2)
+        url = match.group(3)
+        return f"{attr}={quote}{normalize_url(url)}{quote}"
+
+    def replace_srcset(match: re.Match[str]) -> str:
+        quote = match.group(1)
+        value = match.group(2)
+        pieces = []
+        for item in value.split(","):
+            bits = item.strip().split()
+            if not bits:
+                continue
+            bits[0] = normalize_url(bits[0])
+            pieces.append(" ".join(bits))
+        return f"srcset={quote}{', '.join(pieces)}{quote}"
+
+    html_text = re.sub(r"\b(href|src)=(['\"])([^'\"]+)\2", replace_attr, html_text)
+    html_text = re.sub(r"\bsrcset=(['\"])([^'\"]+)\1", replace_srcset, html_text)
+    return html_text
+
+
 @dataclass
 class Document:
     source_path: Path
@@ -62,7 +98,11 @@ def parse_document(path: Path) -> Document:
                 raise ValueError(f"Invalid frontmatter line in {path}: {line}")
             key, value = line.split(":", 1)
             meta[key.strip()] = value.strip()
-    return Document(path, meta, body.strip(), markdown_to_html(body.strip()))
+    body = body.strip()
+    body_format = meta.get("body_format", "").lower()
+    html_body = body if body_format == "html" or path.suffix == ".html" else markdown_to_html(body)
+    html_body = normalize_html_urls(html_body)
+    return Document(path, meta, body, html_body)
 
 
 def markdown_to_html(markdown: str) -> str:
@@ -262,8 +302,12 @@ def main() -> None:
     PUBLIC.mkdir()
     copy_assets()
 
-    pages = load_documents((SOURCE / "pages").glob("*.md"))
-    posts = load_documents((SOURCE / "posts").glob("*.md"))
+    pages = load_documents(
+        list((SOURCE / "pages").glob("*.md")) + list((SOURCE / "pages").glob("*.html"))
+    )
+    posts = load_documents(
+        list((SOURCE / "posts").glob("*.md")) + list((SOURCE / "posts").glob("*.html"))
+    )
 
     for page in pages:
         template = page.meta.get("template", "page")

@@ -4,15 +4,15 @@
 Get a small static version of `rahulshankar.com` onto GitHub Pages without touching the live domain yet.
 
 ## First public slice
-Publish only enough to prove the pipeline:
+Publish enough to prove the pipeline:
 - index page
 - writing index
-- `Ghosts of Bombay` article page
+- migrated public Ghost posts and pages
 - RSS feed
 - shared CSS
 
 Leave out:
-- full archive migration
+- drafts and private/member-only content
 - email signup
 - member tracking
 - custom search
@@ -23,8 +23,8 @@ Leave out:
 | Source | Public path | Role |
 | --- | --- | --- |
 | `source/pages/index.md` | `/` | spare personal homepage |
-| `source/pages/about.md` | `/about/` | placeholder about page |
-| `source/posts/ghosts-of-bombay.md` | `/ghosts-of-bombay/` | first article migration target |
+| `source/pages/about.html` | `/about/` | migrated Ghost about page |
+| `source/posts/*.html` | post slugs | migrated public Ghost posts |
 
 ## Test publish path
 1. Build locally.
@@ -52,7 +52,7 @@ Track `docs/` in Git because GitHub Pages will serve it. Ignore `public/` becaus
 - Should the temporary repository be public or private?
 - Should the live site use `rahulshankar.com` or `www.rahulshankar.com` as canonical?
 - Which DNS records are currently used for email?
-- Should the full Ghosts of Bombay article be migrated by export, scrape, or manual source copy?
+- Should drafts, private/member-only content, or subscriber data be exported manually from Ghost admin?
 
 ## Change log
 - 2026-05-30: Created the first launch plan for index, Ghosts of Bombay, and GitHub Pages testing.

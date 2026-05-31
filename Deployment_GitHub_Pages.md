@@ -10,6 +10,7 @@ The source of truth remains:
 - local source files in `source/`
 - local scripts in `scripts/`
 - generated output in `public/`
+- raw public Ghost API exports in `raw/ghost-public/`
 
 GitHub's role is to serve finished files. Squarespace's role is to keep owning/renewing the domain and managing DNS unless Rahul later moves the domain or nameservers.
 
