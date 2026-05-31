@@ -56,7 +56,15 @@ Track visual choices for the personal site before changing the system.
 ## Pinterest Board
 Source: [DDC / Ghosts of Bombay](https://www.pinterest.com/Jakebluras/ddc-ghosts-of-bombay/)
 
-Access note: Pinterest did not expose the board through public fetch. Rahul has access in Safari/Gmail; Codex needs either an in-app browser login, Chrome extension access, or board screenshots/exports to inspect and extract colors.
+Access note: Pinterest did not expose the board through public fetch. Rahul has access in Safari/Gmail/Chrome. Codex tried the Chrome extension route; the extension showed connected in Chrome, but this thread could not acquire the browser backend. Do not ask for dozens of screenshots.
+
+Practical capture path:
+1. Open the board in logged-in Chrome.
+2. Scroll until all pins are loaded.
+3. Save the page as `Webpage, Complete` into `raw/pinterest/ddc-ghosts-of-bombay/`.
+4. Codex parses the saved HTML and image folder, then extracts palette, material cues, titles, source links, and recurring motifs.
+
+If live browser inspection is needed later, first reconnect or reinstall the Chrome plugin from Codex's plugin UI, then retry tab claiming.
 
 Use this as the primary visual source once accessible. Pull:
 - recurring colors
