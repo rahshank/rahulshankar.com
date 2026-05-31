@@ -45,6 +45,17 @@ This site currently uses a small custom static pipeline:
 
 The likely next structural addition is `source/notes/` plus a generated `/notes/` index if Rahul wants a public notebook section for short observations.
 
+## Information architecture
+The current target navigation is:
+
+| Section | Role |
+| --- | --- |
+| `Writing` | Longer essays and the migrated Ghost archive |
+| `Notebook` | Shorter field notes, observations, travel notes, aesthetic notes, and public fragments from Fieldwork |
+| `About` | Current intro, biography, and project orientation |
+
+`A week in Beijing` is the first likely reclassification candidate: it reads more like a field note or travel note than a formal essay, so it should probably live in `Notebook` once that section exists.
+
 ## Current workflow
 Run the builder from this folder:
 

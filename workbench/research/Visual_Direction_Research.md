@@ -42,6 +42,7 @@ Track visual choices for the personal site before changing the system.
 | Venkatesh Rao / Ribbonfarm | archive posture, low-maintenance static feel, personal ecosystem split |
 | Interconnected | dated posts, old-web navigation, voice-forward blogging surface |
 | Rahul's migrated Ghost posts | image palette, article rhythm, old tags, strongest visual anchors |
+| Pinterest board: DDC / Ghosts of Bombay | designer-session inspiration, color palette, texture, references, and mood for Ghosts of Bombay |
 
 ## Early Reference Read
 | Source | Useful Clue |
@@ -51,5 +52,18 @@ Track visual choices for the personal site before changing the system.
 | Interconnected | Feels like a personal publication rather than a portfolio; dated URLs and post pages carry the archive. |
 | Ribbonfarm | The archive posture matters more than the ornamental layer; old writing can be preserved without pretending it is current. |
 
+## Pinterest Board
+Source: [DDC / Ghosts of Bombay](https://www.pinterest.com/Jakebluras/ddc-ghosts-of-bombay/)
+
+Access note: Pinterest did not expose the board through public fetch. Rahul has access in Safari/Gmail; Codex needs either an in-app browser login, Chrome extension access, or board screenshots/exports to inspect and extract colors.
+
+Use this as the primary visual source once accessible. Pull:
+- recurring colors
+- texture/material cues
+- type/signage references
+- image density and cropping patterns
+- any designer-session notes visible in pin titles/descriptions
+
 ## Change Log
+- 2026-05-30: Added the DDC / Ghosts of Bombay Pinterest board as the primary visual source once accessible.
 - 2026-05-30: Created first visual research surface.

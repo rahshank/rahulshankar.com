@@ -101,12 +101,11 @@ Candidate stack:
 
 ## Site shape
 Possible top-level areas:
-- Home
-- About
-- Writing
-- Topics
-- Ghosts of Bombay
-- Contact / updates
+- Writing: longer essays and migrated Ghost posts
+- Notebook: short observations, field notes, travel notes, aesthetic notes, and public fragments from Fieldwork
+- About: current intro, biography, and project orientation
+
+This gives the site a useful distinction between finished essays and public notes. `A week in Beijing` is the first likely reclassification candidate because it functions more like a field note/travel note than a formal essay.
 
 ## First recreation target
 Use `Ghosts of Bombay` as the first article-page test because it has the core ingredients:
@@ -150,6 +149,7 @@ Optional later layers:
 - Should email signup be removed, replaced with a simple form, or pointed to a separate newsletter/list tool?
 - Should `Ghosts of Bombay` be a project page, a topic page, or its own mini-site later?
 - What should the authoring source format be for new posts: Markdown, MDX, HTML-with-frontmatter, or a simple structured note that the pipeline converts?
+- Should existing migrated posts be reclassified manually into `Writing` and `Notebook`, starting with `A week in Beijing`?
 
 ## Change log
 - 2026-05-30: Captured the low-frequency living static site direction.
@@ -162,3 +162,4 @@ Optional later layers:
 - 2026-05-30: Added GitHub Pages deployment notes and a local generated-site checker.
 - 2026-05-30: Added a headless preview renderer after local server and in-app browser preview paths failed.
 - 2026-05-30: Added standalone preview HTML generation as the fallback visual verification path.
+- 2026-05-30: Captured target navigation as Writing / Notebook / About, with `A week in Beijing` as a likely Notebook item.
