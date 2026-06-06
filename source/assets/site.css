@@ -1,10 +1,10 @@
 :root {
-  --bg: #f4efe3;
-  --paper: #fffaf0;
+  --bg: #f4f4f0;
+  --paper: #f4f4f0;
   --ink: #16120f;
-  --muted: #6f655b;
-  --line: #c8b9a3;
-  --line-soft: #ddd1bd;
+  --muted: #757575;
+  --line: #dcdcd8;
+  --line-soft: #e5e5e2;
   --accent: #202070;
   --accent-warm: #c94d3f;
   --accent-bright: #f06f5f;
@@ -213,7 +213,7 @@ figcaption {
 
 .kg-bookmark-card {
   border: 1px solid var(--line);
-  background: #faf4e8;
+  background: #e5e5e2;
   padding: 1rem;
 }
 

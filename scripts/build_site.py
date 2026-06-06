@@ -33,6 +33,8 @@ def normalize_url(url: str) -> str:
         return url
     if url.startswith("//"):
         return f"https:{url}"
+    if BASE_PATH and url.startswith(f"/{BASE_PATH}/"):
+        return url
     if re.match(r"^[A-Za-z0-9.-]+\.[A-Za-z]{2,}(/.*)?$", url):
         return f"https://{url}"
     if url.startswith("/"):
@@ -180,18 +182,10 @@ def page_shell(title: str, content: str, path: str = "/", description: str = "")
 
 
 def render_home(doc: Document, entries: List[Document]) -> str:
-    latest = "\n".join(
-        f'<li><a href="{site_path(entry.url_path)}">{html.escape(entry.title)}</a>'
-        f' <span class="meta">{html.escape(entry.meta.get("date", ""))}</span></li>'
-        for entry in sorted(entries, key=lambda item: item.meta.get("date", ""), reverse=True)
-    )
     content = f"""
 <main>
-  <p class="eyebrow">Personal website and public working surface</p>
   <h1>{html.escape(doc.title)}</h1>
   {doc.html_body}
-  <h2>Latest</h2>
-  <ul>{latest}</ul>
 </main>
 """
     return page_shell(doc.title, content, doc.url_path, doc.meta.get("summary", ""))
