@@ -30,6 +30,14 @@ For an apex domain like `rahulshankar.com`, GitHub Pages uses these `A` records:
 
 For `www.rahulshankar.com`, GitHub Pages uses a `CNAME` record pointing to the GitHub Pages default domain, such as `username.github.io`.
 
+Current DNS check on 2026-06-06:
+
+| Name | Current record | Meaning |
+| --- | --- | --- |
+| `rahulshankar.com` | A `178.128.137.126` | apex is not pointed at GitHub Pages |
+| `www.rahulshankar.com` | CNAME `rahul-shankar.ghost.io.` | `www` is still pointed at Ghost |
+| `rahulshankar.com` | no MX records returned | no visible apex mail routing from this DNS check, but preserve any email-related records visible in Squarespace |
+
 ## Squarespace implications
 Because the domain was purchased through Squarespace:
 - DNS changes happen in the Squarespace domain DNS settings unless nameservers are moved.
@@ -52,6 +60,22 @@ Do not delete MX records or email-related TXT/CNAME records unless intentionally
 10. Only then consider cancelling Ghost/Squarespace website services.
 
 For the temporary project URL `https://rahshank.github.io/rahulshankar.com/`, `docs/` is built with `SITE_BASE_PATH=rahulshankar.com`. Before switching to the live custom domain, rebuild `docs/` without the base path so root-relative links point to `rahulshankar.com`.
+
+The publish script now handles both modes:
+
+```sh
+python3 scripts/prepare_github_pages.py
+```
+
+prepares the temporary GitHub Pages project URL.
+
+```sh
+SITE_CUSTOM_DOMAIN=rahulshankar.com python3 scripts/prepare_github_pages.py
+```
+
+prepares the final custom-domain output and writes `docs/CNAME`.
+
+The custom-domain build should be used only when we are ready to change DNS, because the temporary project URL depends on the `/rahulshankar.com` base path.
 
 ## Authentication path
 Use the official GitHub CLI for the first push if it is available. If it is not installed globally, install a temporary local copy into `.tools/gh/` and keep `.tools/` out of Git.
