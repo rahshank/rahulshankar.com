@@ -74,6 +74,8 @@ For a normal edit:
 6. Commit and push `main`.
 7. GitHub Pages serves the updated `docs/` output at `rahulshankar.com`.
 
+For publishable site work, "built and verified locally" is not complete. The work is complete only when it is either published and checked on `rahulshankar.com`, or deliberately left local with that decision stated in the handoff or board breadcrumb.
+
 Small content/style changes can go straight to `main`. Larger experiments should use a branch or stay under `workbench/experiments/` until they are ready.
 
 Assume parallel threads may be working in this folder. Before publishing, check for unrelated local work and stage only the files that belong to the current publish slice. Do not use `git add -A` or broad folder staging when untracked experiments are present. San Rafael and other field-note prototypes should stay local until they are explicitly promoted.
@@ -138,6 +140,7 @@ python3 -m http.server 8765 -d public
 ```
 
 ## Change log
+- 2026-06-17: Added the site-specific completion rule: publishable work is not done until it is live and checked, or explicitly held local.
 - 2026-06-17: Added the local-to-GitHub-to-public-site update path and branch guidance.
 - 2026-06-07: Added `workbench/experiments/` to the site folder map.
 - 2026-06-06: Switched the recommended screenshot workflow to the workspace-level Playwright runner.

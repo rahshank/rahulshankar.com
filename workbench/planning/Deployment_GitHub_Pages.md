@@ -29,6 +29,8 @@ The live update path is:
 7. Push `main` to `origin`.
 8. GitHub Pages publishes from `main` and `/docs`.
 
+Completion rule: for publishable site work, local build and local verification are interim states. A thread should end with the change live and checked on `rahulshankar.com`, or with a clear decision that the work is staying local for now.
+
 The normal publish command sequence after review is:
 
 ```sh
@@ -124,6 +126,7 @@ This is preferred over pasting a token into chat because GitHub CLI supports a o
 - Squarespace DNS warning about MX records: https://support.squarespace.com/hc/en-us/articles/205812378-Connecting-a-third-party-domain-to-your-Squarespace-site
 
 ## Change log
+- 2026-06-17: Added the publishable-work completion rule so future threads do not treat local verification as done.
 - 2026-06-17: Reframed the page as the live deployment runbook and moved the first-deployment material into historical cutover context.
 - 2026-06-17: Added the current local-build-commit-push-GitHub Pages update path and branch guidance.
 - 2026-05-30: Documented the temporary GitHub Pages base path.
