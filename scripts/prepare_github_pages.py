@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PUBLIC = ROOT / "public"
 DOCS = ROOT / "docs"
 BUILD = ROOT / "scripts" / "build_site.py"
-CUSTOM_DOMAIN = os.environ.get("SITE_CUSTOM_DOMAIN", "").strip()
+CUSTOM_DOMAIN = os.environ.get("SITE_CUSTOM_DOMAIN", "rahulshankar.com").strip()
 DEFAULT_BASE_PATH = "" if CUSTOM_DOMAIN else "rahulshankar.com"
 
 

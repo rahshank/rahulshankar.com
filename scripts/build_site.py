@@ -18,6 +18,58 @@ SITE_TITLE = "Rahul Shankar"
 SITE_URL = "https://rahulshankar.com"
 BASE_PATH = os.environ.get("SITE_BASE_PATH", "").strip("/")
 
+THEME_BOOT_SCRIPT = """  <script>
+    (function () {
+      try {
+        var savedTheme = localStorage.getItem("site-theme");
+        var prefersNight = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.dataset.theme = savedTheme || (prefersNight ? "night" : "day");
+      } catch (error) {
+        document.documentElement.dataset.theme = "day";
+      }
+    })();
+  </script>"""
+
+THEME_CONTROL_SCRIPT = """  <script>
+    (function () {
+      var root = document.documentElement;
+      var button = document.querySelector("[data-theme-toggle]");
+      var icon = document.querySelector("[data-theme-toggle-icon]");
+      var media = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+
+      function applyTheme(theme, persist) {
+        root.dataset.theme = theme;
+        if (persist) {
+          localStorage.setItem("site-theme", theme);
+        }
+        if (!button || !icon) {
+          return;
+        }
+        var isNight = theme === "night";
+        icon.textContent = isNight ? "☀" : "☾";
+        button.setAttribute("aria-pressed", String(isNight));
+        button.setAttribute("aria-label", isNight ? "Switch to daytime" : "Switch to nighttime");
+        button.setAttribute("title", isNight ? "Switch to daytime" : "Switch to nighttime");
+      }
+
+      applyTheme(root.dataset.theme || "day", false);
+
+      if (button) {
+        button.addEventListener("click", function () {
+          applyTheme(root.dataset.theme === "night" ? "day" : "night", true);
+        });
+      }
+
+      if (media) {
+        media.addEventListener("change", function (event) {
+          if (!localStorage.getItem("site-theme")) {
+            applyTheme(event.matches ? "night" : "day", false);
+          }
+        });
+      }
+    })();
+  </script>"""
+
 
 def site_path(path: str) -> str:
     if path.startswith(("http://", "https://", "mailto:", "#")):
@@ -161,21 +213,28 @@ def page_shell(title: str, content: str, path: str = "/", description: str = "")
   <meta name="description" content="{desc}">
   <link rel="canonical" href="{canonical}">
   <link rel="alternate" type="application/rss+xml" title="{SITE_TITLE}" href="{site_path("/rss.xml")}">
+{THEME_BOOT_SCRIPT}
   <link rel="stylesheet" href="{site_path("/assets/site.css")}">
 </head>
 <body>
   <div class="site">
     <header class="masthead">
       <a class="brand" href="{site_path("/")}">Rahul Shankar</a>
-      <nav class="nav" aria-label="Primary">
-        <a href="{site_path("/writing/")}">Writing</a>
-        <a href="{site_path("/notebook/")}">Notebook</a>
-        <a href="{site_path("/about/")}">About</a>
-      </nav>
+      <div class="masthead-actions">
+        <nav class="nav" aria-label="Primary">
+          <a href="{site_path("/writing/")}">Writing</a>
+          <a href="{site_path("/notebook/")}">Notebook</a>
+          <a href="{site_path("/about/")}">About</a>
+        </nav>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="Switch to nighttime" title="Switch to nighttime">
+          <span class="theme-toggle-icon" data-theme-toggle-icon aria-hidden="true">☾</span>
+        </button>
+      </div>
     </header>
     {content}
     <footer class="footer">Rahul Shankar</footer>
   </div>
+{THEME_CONTROL_SCRIPT}
 </body>
 </html>
 """
@@ -218,6 +277,20 @@ def render_article(doc: Document) -> str:
   <p class="meta">{html.escape(meta_line)}</p>
   <h1 class="article-title">{html.escape(doc.title)}</h1>
   {hero}
+  {doc.html_body}
+</article>
+"""
+    return page_shell(doc.title, content, doc.url_path, doc.meta.get("summary", ""))
+
+
+def render_visual_note(doc: Document) -> str:
+    topics = doc.meta.get("topics", "")
+    meta_bits = [doc.meta.get("date", ""), topics]
+    meta_line = " · ".join(bit for bit in meta_bits if bit)
+    content = f"""
+<article class="visual-note">
+  <p class="meta">{html.escape(meta_line)}</p>
+  <h1 class="article-title">{html.escape(doc.title)}</h1>
   {doc.html_body}
 </article>
 """
@@ -315,13 +388,18 @@ def main() -> None:
 
     for page in pages:
         template = page.meta.get("template", "page")
-        html_text = render_home(page, entries) if template == "home" else render_page(page)
+        if template == "home":
+            html_text = render_home(page, entries)
+        elif template == "visual_note":
+            html_text = render_visual_note(page)
+        else:
+            html_text = render_page(page)
         write_output(page, html_text)
 
     for post in posts:
-        write_output(post, render_article(post))
+        write_output(post, render_visual_note(post) if post.meta.get("template") == "visual_note" else render_article(post))
     for note in notes:
-        write_output(note, render_article(note))
+        write_output(note, render_visual_note(note) if note.meta.get("template") == "visual_note" else render_article(note))
 
     render_collection_index("Writing", "writing", "Writing by Rahul Shankar.", posts)
     render_collection_index(

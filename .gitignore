@@ -3,3 +3,7 @@ previews/
 public/
 .DS_Store
 raw/pinterest/ddc-ghosts-of-bombay/
+workbench/experiments/**/.astro/
+workbench/experiments/**/dist/
+workbench/experiments/**/node_modules/
+workbench/experiments/**/preview.png

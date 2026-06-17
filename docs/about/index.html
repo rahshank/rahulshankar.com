@@ -7,17 +7,33 @@
   <meta name="description" content="I grew up in Bombay, moved to the United States in my early twenties, and have been based in Detroit for roughly seventeen years.">
   <link rel="canonical" href="https://rahulshankar.com/about/">
   <link rel="alternate" type="application/rss+xml" title="Rahul Shankar" href="/rss.xml">
+  <script>
+    (function () {
+      try {
+        var savedTheme = localStorage.getItem("site-theme");
+        var prefersNight = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.dataset.theme = savedTheme || (prefersNight ? "night" : "day");
+      } catch (error) {
+        document.documentElement.dataset.theme = "day";
+      }
+    })();
+  </script>
   <link rel="stylesheet" href="/assets/site.css">
 </head>
 <body>
   <div class="site">
     <header class="masthead">
       <a class="brand" href="/">Rahul Shankar</a>
-      <nav class="nav" aria-label="Primary">
-        <a href="/writing/">Writing</a>
-        <a href="/notebook/">Notebook</a>
-        <a href="/about/">About</a>
-      </nav>
+      <div class="masthead-actions">
+        <nav class="nav" aria-label="Primary">
+          <a href="/writing/">Writing</a>
+          <a href="/notebook/">Notebook</a>
+          <a href="/about/">About</a>
+        </nav>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="Switch to nighttime" title="Switch to nighttime">
+          <span class="theme-toggle-icon" data-theme-toggle-icon aria-hidden="true">☾</span>
+        </button>
+      </div>
     </header>
     
 <main>
@@ -27,5 +43,44 @@
 
     <footer class="footer">Rahul Shankar</footer>
   </div>
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var button = document.querySelector("[data-theme-toggle]");
+      var icon = document.querySelector("[data-theme-toggle-icon]");
+      var media = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+
+      function applyTheme(theme, persist) {
+        root.dataset.theme = theme;
+        if (persist) {
+          localStorage.setItem("site-theme", theme);
+        }
+        if (!button || !icon) {
+          return;
+        }
+        var isNight = theme === "night";
+        icon.textContent = isNight ? "☀" : "☾";
+        button.setAttribute("aria-pressed", String(isNight));
+        button.setAttribute("aria-label", isNight ? "Switch to daytime" : "Switch to nighttime");
+        button.setAttribute("title", isNight ? "Switch to daytime" : "Switch to nighttime");
+      }
+
+      applyTheme(root.dataset.theme || "day", false);
+
+      if (button) {
+        button.addEventListener("click", function () {
+          applyTheme(root.dataset.theme === "night" ? "day" : "night", true);
+        });
+      }
+
+      if (media) {
+        media.addEventListener("change", function (event) {
+          if (!localStorage.getItem("site-theme")) {
+            applyTheme(event.matches ? "night" : "day", false);
+          }
+        });
+      }
+    })();
+  </script>
 </body>
 </html>

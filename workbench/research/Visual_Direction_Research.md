@@ -40,7 +40,8 @@ Track visual choices for the personal site before changing the system.
 | Michael's Notebook | plain homepage density, project grouping, link-heavy intro, durable archive feel |
 | Andy Matuschak | strong first-person research identity, project hierarchy, notes-versus-essays split |
 | Venkatesh Rao / Ribbonfarm | archive posture, low-maintenance static feel, personal ecosystem split |
-| Interconnected | dated posts, old-web navigation, voice-forward blogging surface |
+| Interconnected | dated posts, old-web navigation, voice-forward blogging surface, slow color-cycle background |
+| Drew Coffman | small persistent day/night setting, simple personal homepage chrome |
 | Rahul's migrated Ghost posts | image palette, article rhythm, old tags, strongest visual anchors |
 | Pinterest board: DDC / Ghosts of Bombay | designer-session inspiration, color palette, texture, references, and mood for Ghosts of Bombay |
 | Ghosts of Bombay Instagram | public-facing food/event imagery, type treatments, room feel, recurring colors, caption voice |
@@ -50,7 +51,8 @@ Track visual choices for the personal site before changing the system.
 | --- | --- |
 | Michael's Notebook | Leads with an "online notebook" identity, then names current projects and past work in one dense, link-rich paragraph. |
 | Andy Matuschak | Uses a crisp professional identity, then expands into current focus, belief, funding/work context, and prior roles. |
-| Interconnected | Feels like a personal publication rather than a portfolio; dated URLs and post pages carry the archive. |
+| Interconnected | Feels like a personal publication rather than a portfolio; dated URLs and post pages carry the archive. The changing pastel background is a small technical gesture that makes a plain page feel alive without adding interface chrome. |
+| Drew Coffman | A day/night toggle can be useful as a personal-site affordance if it stays small, persists across pages, and changes the environment rather than the whole identity. |
 | Ribbonfarm | The archive posture matters more than the ornamental layer; old writing can be preserved without pretending it is current. |
 | DDC / Ghosts of Bombay Pinterest | Points toward night street, public rooms, transit, music, poster illustration, roadside food, and saturated accent color over polished restaurant branding. |
 | Ghosts of Bombay Instagram | Confirms the current public face: pop-up documentation, menu cards, charity/community events, food close-ups, and a navy/coral mark. |
@@ -90,6 +92,8 @@ Use this as the public-facing visual source once accessible. Pull:
 Derived read: [Instagram Ghosts of Bombay Read](Instagram_Ghosts_Of_Bombay_Read.md)
 
 ## Change Log
+- 2026-06-16: Added Drew Coffman's persistent day/night control as a visual-system reference.
+- 2026-06-07: Added Interconnected's CSS color-cycle behavior as a visual-system reference.
 - 2026-05-30: Added exact Ghosts of Bombay Instagram source and first derived read.
 - 2026-05-30: Added Ghosts of Bombay Instagram as a public-facing visual source.
 - 2026-05-30: Added the DDC / Ghosts of Bombay Pinterest board as the primary visual source once accessible.

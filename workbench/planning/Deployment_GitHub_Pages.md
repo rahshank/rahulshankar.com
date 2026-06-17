@@ -1,7 +1,9 @@
 # GitHub Pages Deployment Notes
 
 ## Purpose
-Capture the likely first deployment path for the custom static site while keeping the source pipeline local and portable.
+Keep the operational runbook for publishing `rahulshankar.com` from local static files through GitHub Pages.
+
+This page is for deployment mechanics: the local build path, the tracked `docs/` output, GitHub Pages settings, custom-domain records, and the few recovery details that matter if the site stops resolving cleanly. Site voice, visual direction, content backlog, and experiments live elsewhere in `workbench/`.
 
 ## Working model
 Use GitHub Pages as a static file host, not as the authoring system.
@@ -9,13 +11,38 @@ Use GitHub Pages as a static file host, not as the authoring system.
 The source of truth remains:
 - local source files in `source/`
 - local scripts in `scripts/`
-- generated output in `public/`
+- local generated output in `public/`
+- GitHub Pages output in `docs/`
 - raw public Ghost API exports in `raw/ghost-public/`
 
 GitHub's role is to serve finished files. Squarespace's role is to keep owning/renewing the domain and managing DNS unless Rahul later moves the domain or nameservers.
 
+## Current update path
+The live update path is:
+
+1. Edit local source files in `source/`, supporting code in `scripts/`, or planning/research notes in `workbench/`.
+2. Run `python3 scripts/build_site.py` to build `public/` for local preview.
+3. Run `python3 scripts/check_site.py` and any relevant visual checks.
+4. Run `python3 scripts/prepare_github_pages.py` to rebuild tracked `docs/` for `rahulshankar.com`.
+5. Review with `git status` and `git diff`.
+6. Commit the source changes plus generated `docs/` output.
+7. Push `main` to `origin`.
+8. GitHub Pages publishes from `main` and `/docs`.
+
+The normal publish command sequence after review is:
+
+```sh
+git add source scripts docs workbench README.md
+git commit -m "Describe the site update"
+git push origin main
+```
+
+This repo currently uses a simple `main`-branch publish model. Use a feature branch for larger visual experiments, risky generator changes, or anything Rahul wants to inspect without changing the live site. Keep exploratory code under `workbench/experiments/` until it is promoted.
+
 ## Custom domain
 The public URL can still be `rahulshankar.com` or `www.rahulshankar.com`. The GitHub default URL, such as `username.github.io`, is only the underlying Pages address.
+
+Current state: `rahulshankar.com` is the live custom domain for this GitHub Pages site. `docs/CNAME` should contain `rahulshankar.com`, and normal builds should use root-relative links.
 
 GitHub's docs say the custom domain should be configured in the repository's Pages settings before changing DNS. They also recommend verifying the custom domain to reduce takeover risk.
 
@@ -30,7 +57,7 @@ For an apex domain like `rahulshankar.com`, GitHub Pages uses these `A` records:
 
 For `www.rahulshankar.com`, GitHub Pages uses a `CNAME` record pointing to the GitHub Pages default domain, such as `username.github.io`.
 
-Current DNS check on 2026-06-06:
+Original DNS check before cutover on 2026-06-06:
 
 | Name | Current record | Meaning |
 | --- | --- | --- |
@@ -47,7 +74,9 @@ Because the domain was purchased through Squarespace:
 
 Do not delete MX records or email-related TXT/CNAME records unless intentionally changing email providers.
 
-## First deployment sequence
+## Historical cutover path
+The initial move from Ghost/Squarespace to GitHub Pages followed this sequence:
+
 1. Build and inspect the local static site.
 2. Create a GitHub repository for the site.
 3. Store source files and generated output together for the first test.
@@ -59,23 +88,21 @@ Do not delete MX records or email-related TXT/CNAME records unless intentionally
 9. Wait for DNS and HTTPS to settle.
 10. Only then consider cancelling Ghost/Squarespace website services.
 
-For the temporary project URL `https://rahshank.github.io/rahulshankar.com/`, `docs/` is built with `SITE_BASE_PATH=rahulshankar.com`. Before switching to the live custom domain, rebuild `docs/` without the base path so root-relative links point to `rahulshankar.com`.
+For the temporary project URL `https://rahshank.github.io/rahulshankar.com/`, `docs/` was built with `SITE_BASE_PATH=rahulshankar.com`. The live custom-domain build uses root-relative paths and writes `docs/CNAME`.
 
-The publish script now handles both modes:
+The publish script now defaults to the live custom domain:
 
 ```sh
 python3 scripts/prepare_github_pages.py
 ```
 
-prepares the temporary GitHub Pages project URL.
+To intentionally prepare the old temporary GitHub Pages project URL, clear the custom domain and set the base path:
 
 ```sh
-SITE_CUSTOM_DOMAIN=rahulshankar.com python3 scripts/prepare_github_pages.py
+SITE_CUSTOM_DOMAIN= SITE_BASE_PATH=rahulshankar.com python3 scripts/prepare_github_pages.py
 ```
 
-prepares the final custom-domain output and writes `docs/CNAME`.
-
-The custom-domain build should be used only when we are ready to change DNS, because the temporary project URL depends on the `/rahulshankar.com` base path.
+Do not use the temporary mode for normal publishing because `rahulshankar.com` is now the live site.
 
 ## Authentication path
 Use the official GitHub CLI for the first push if it is available. If it is not installed globally, install a temporary local copy into `.tools/gh/` and keep `.tools/` out of Git.
@@ -87,5 +114,7 @@ This is preferred over pasting a token into chat because GitHub CLI supports a o
 - Squarespace DNS warning about MX records: https://support.squarespace.com/hc/en-us/articles/205812378-Connecting-a-third-party-domain-to-your-Squarespace-site
 
 ## Change log
+- 2026-06-17: Reframed the page as the live deployment runbook and moved the first-deployment material into historical cutover context.
+- 2026-06-17: Added the current local-build-commit-push-GitHub Pages update path and branch guidance.
 - 2026-05-30: Documented the temporary GitHub Pages base path.
 - 2026-05-30: Created initial GitHub Pages deployment note.
