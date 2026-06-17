@@ -1,29 +1,20 @@
 # Personal Site
 
 ## Purpose
-Explore and, if useful, build a more controlled replacement for Rahul's current Ghost-hosted personal site.
+Build and publish Rahul's public static website.
 
 The emerging shape is a low-frequency living static site: not a paid membership business, not a frozen archive, and not a CMS-heavy publication workflow.
 
 ## Folder map
 | Path | Role | Status |
 | --- | --- | --- |
-| `README.md` | Arena orientation and current migration thinking | current |
+| `README.md` | Public repo orientation and current publish process | current |
 | `source/` | Local source files for pages, posts, notes, and assets | working draft |
 | `scripts/` | Site builder, importers, link checks, and preview helpers | working draft |
 | `raw/ghost-public/` | Raw public Ghost API exports used by the importer | reference |
 | `docs/` | GitHub Pages-ready generated output | generated, tracked for publish |
 | `public/` | Local generated static website output | generated, ignored |
 | `previews/` | Generated preview inputs/screenshots for visual inspection | generated, ignored |
-| `workbench/` | Planning, research, and decision notes for the site | working |
-| `workbench/planning/Website_Migration_Notes.md` | Working notes for architecture, migration, and decisions | working draft |
-| `workbench/planning/Initial_Launch_Plan.md` | First publish slice and GitHub Pages test path | current |
-| `workbench/planning/Deployment_GitHub_Pages.md` | First deployment path and Squarespace DNS implications | working draft |
-| `workbench/experiments/` | Site implementation experiments and prototypes | working |
-| `workbench/research/Website_Inspiration_Log.md` | Short table of reference sites and borrowable patterns | current |
-| `workbench/research/Homepage_Intro_Research.md` | Working surface for homepage/about intro directions | working draft |
-| `workbench/research/Visual_Direction_Research.md` | Working surface for type, color, layout, and visual references | working draft |
-| `workbench/README.md` | Workbench boundary and map | current |
 | `scripts/build_site.py` | Custom Python generator from source files to static output | working draft |
 | `scripts/check_site.py` | Local generated-site link checker | working draft |
 | `scripts/import_ghost_public.py` | Imports public Ghost posts/pages and images into local source files | working draft |
@@ -41,8 +32,9 @@ This site currently uses a small custom static pipeline:
 | Public Ghost importer | preserves the old public archive and images from Ghost while moving the working copy local |
 | Generated `docs/` output | lets GitHub Pages publish without GitHub Actions for the first version |
 | GitHub Pages with custom domain | serves the tracked `docs/` output at `rahulshankar.com` |
-| `workbench/` notes | keeps planning and inspiration close to the project without mixing them with source/build files |
 | `public/` and `previews/` ignored | local outputs can be regenerated and should not clutter commits |
+
+Private planning, inspiration, and backlog notes live beside this repo in `../workbench/`.
 
 The site now has `source/notes/` plus a generated `/notebook/` index for short observations, travel notes, and public field notes.
 
@@ -62,11 +54,11 @@ The update path is:
 
 `local source -> generated static site -> GitHub commit/push -> GitHub Pages -> rahulshankar.com`
 
-GitHub is the publishing host, not the writing interface. The source of truth stays in this folder.
+GitHub is the publishing host, not the writing interface. The public site source of truth stays in this repo.
 
 For a normal edit:
 
-1. Change files under `source/`, `scripts/`, or `workbench/`.
+1. Change files under `source/` or `scripts/`.
 2. Build the local site.
 3. Preview and check the generated site.
 4. Prepare `docs/`, which is the GitHub Pages output folder.
@@ -76,9 +68,9 @@ For a normal edit:
 
 For publishable site work, "built and verified locally" is not complete. The work is complete only when it is either published and checked on `rahulshankar.com`, or deliberately left local with that decision stated in the handoff or board breadcrumb.
 
-Small content/style changes can go straight to `main`. Larger experiments should use a branch or stay under `workbench/experiments/` until they are ready.
+Small content/style changes can go straight to `main`. Larger experiments should use a branch or stay local under `../workbench/experiments/` until they are ready.
 
-Assume parallel threads may be working in this folder. Before publishing, check for unrelated local work and stage only the files that belong to the current publish slice. Do not use `git add -A` or broad folder staging when untracked experiments are present. San Rafael and other field-note prototypes should stay local until they are explicitly promoted.
+Assume parallel threads may be working in this repo. Before publishing, check for unrelated local work and stage only the files that belong to the current publish slice. Do not use `git add -A` or broad folder staging when untracked experiments are present. San Rafael and other field-note prototypes should stay local until they are explicitly promoted.
 
 Run the local builder from this folder:
 
@@ -140,6 +132,7 @@ python3 -m http.server 8765 -d public
 ```
 
 ## Change log
+- 2026-06-17: Moved the public website repo under `personal-site/publish/` and removed private `workbench/` notes from the repo boundary.
 - 2026-06-17: Added the site-specific completion rule: publishable work is not done until it is live and checked, or explicitly held local.
 - 2026-06-17: Added the local-to-GitHub-to-public-site update path and branch guidance.
 - 2026-06-07: Added `workbench/experiments/` to the site folder map.
