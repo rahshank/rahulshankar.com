@@ -36,6 +36,8 @@ This site currently uses a small custom static pipeline:
 
 Private planning, inspiration, and backlog notes live beside this repo in `../workbench/`.
 
+Do not put private planning, inspiration, or unfinished experiment notes in this repo. Keep public-site files here; keep working notes in `../workbench/`.
+
 The site now has `source/notes/` plus a generated `/notebook/` index for short observations, travel notes, and public field notes.
 
 ## Information architecture
@@ -120,18 +122,19 @@ GitHub Pages is configured to publish from the `main` branch and `/docs` folder.
 Run repeatable browser checks and screenshots from the workspace root:
 
 ```sh
-.tools/bin/fieldwork-ui check personal-site
+.tools/bin/fieldwork-web check personal-site
 ```
 
 This checks the generated site with Playwright across Chromium, Firefox, and WebKit at desktop and mobile viewport sizes. Screenshots and the latest JSON report are written to `automation/ui-testing/artifacts/personal-site/`.
 
-Preview the generated site locally:
+Preview the generated site locally from the Fieldwork root:
 
 ```sh
-python3 -m http.server 8765 -d public
+.tools/bin/fieldwork-web preview personal-site
 ```
 
 ## Change log
+- 2026-06-17: Clarified the private-workbench boundary and switched routine preview/check docs to the Fieldwork wrapper.
 - 2026-06-17: Moved the public website repo under `personal-site/publish/` and removed private `workbench/` notes from the repo boundary.
 - 2026-06-17: Added the site-specific completion rule: publishable work is not done until it is live and checked, or explicitly held local.
 - 2026-06-17: Added the local-to-GitHub-to-public-site update path and branch guidance.
