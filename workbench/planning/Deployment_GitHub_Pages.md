@@ -32,12 +32,22 @@ The live update path is:
 The normal publish command sequence after review is:
 
 ```sh
-git add source scripts docs workbench README.md
+git add path/to/changed-file
+# If all modified tracked files belong to this publish slice, `git add -u` is acceptable.
 git commit -m "Describe the site update"
 git push origin main
 ```
 
 This repo currently uses a simple `main`-branch publish model. Use a feature branch for larger visual experiments, risky generator changes, or anything Rahul wants to inspect without changing the live site. Keep exploratory code under `workbench/experiments/` until it is promoted.
+
+Assume there may be parallel threads with local work in progress. Publishing should stage the current slice deliberately, not sweep in every changed or untracked file. Before committing:
+
+1. Check `git status` for unrelated modified or untracked files.
+2. Stage exact paths for the current slice.
+3. Use `git add -u` only when every modified tracked file belongs in the publish.
+4. Do not use `git add -A` when experiments, drafts, or generated prototype pages are present.
+
+San Rafael is the current example: local `/san-rafael/` prototype files should remain unpublished until Rahul explicitly promotes that page.
 
 ## Custom domain
 The public URL can still be `rahulshankar.com` or `www.rahulshankar.com`. The GitHub default URL, such as `username.github.io`, is only the underlying Pages address.

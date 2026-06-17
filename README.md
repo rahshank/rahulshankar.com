@@ -76,6 +76,8 @@ For a normal edit:
 
 Small content/style changes can go straight to `main`. Larger experiments should use a branch or stay under `workbench/experiments/` until they are ready.
 
+Assume parallel threads may be working in this folder. Before publishing, check for unrelated local work and stage only the files that belong to the current publish slice. Do not use `git add -A` or broad folder staging when untracked experiments are present. San Rafael and other field-note prototypes should stay local until they are explicitly promoted.
+
 Run the local builder from this folder:
 
 ```sh
@@ -113,7 +115,8 @@ Publish after review:
 ```sh
 git status
 git diff
-git add source scripts docs workbench README.md
+git add path/to/changed-file
+# If all modified tracked files belong to this publish slice, `git add -u` is acceptable.
 git commit -m "Describe the site update"
 git push origin main
 ```
