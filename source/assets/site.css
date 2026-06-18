@@ -190,6 +190,10 @@ h2 {
   padding-top: 14px;
 }
 
+main > h2:first-of-type {
+  margin-top: 0;
+}
+
 p,
 ul,
 ol,

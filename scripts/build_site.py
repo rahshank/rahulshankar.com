@@ -166,7 +166,8 @@ def markdown_to_html(markdown: str) -> str:
         lines = block.splitlines()
         first = lines[0].strip()
         if first.startswith("## "):
-            rendered.append(f"<h2>{inline(first[3:].strip())}</h2>")
+            heading = first[3:].strip()
+            rendered.append(f'<h2 id="{heading_id(heading)}">{inline(heading)}</h2>')
         elif first.startswith("# "):
             rendered.append(f"<h1>{inline(first[2:].strip())}</h1>")
         elif first in {"---", "***"}:
@@ -187,6 +188,12 @@ def markdown_to_html(markdown: str) -> str:
             paragraph = " ".join(line.strip() for line in lines)
             rendered.append(f"<p>{inline(paragraph)}</p>")
     return "\n".join(rendered)
+
+
+def heading_id(text: str) -> str:
+    lowered = text.lower()
+    slug = re.sub(r"[^a-z0-9]+", "-", lowered).strip("-")
+    return html.escape(slug or "section", quote=True)
 
 
 def inline(text: str) -> str:
@@ -250,7 +257,7 @@ def page_shell(title: str, content: str, path: str = "/", description: str = "")
 
 def render_home(doc: Document, entries: List[Document]) -> str:
     content = f"""
-<main id="about">
+<main>
   <h1 class="visually-hidden">{html.escape(doc.title)}</h1>
   {doc.html_body}
 </main>
