@@ -204,6 +204,14 @@ def page_shell(title: str, content: str, path: str = "/", description: str = "")
     full_title = SITE_TITLE if title == SITE_TITLE else f"{title} - {SITE_TITLE}"
     desc = html.escape(description or "Personal website of Rahul Shankar.", quote=True)
     canonical = f"{SITE_URL}{path}" if path != "/" else SITE_URL
+    if path == "/":
+        notebook_link = "#notebook"
+        writing_link = "#writing"
+        about_link = "#about"
+    else:
+        notebook_link = site_path("/#notebook")
+        writing_link = site_path("/#writing")
+        about_link = site_path("/#about")
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -222,9 +230,9 @@ def page_shell(title: str, content: str, path: str = "/", description: str = "")
       <a class="brand" href="{site_path("/")}">Rahul Shankar</a>
       <div class="masthead-actions">
         <nav class="nav" aria-label="Primary">
-          <a href="{site_path("/writing/")}">Writing</a>
-          <a href="{site_path("/notebook/")}">Notebook</a>
-          <a href="{site_path("/about/")}">About</a>
+          <a href="{notebook_link}">Notebook</a>
+          <a href="{writing_link}">Writing</a>
+          <a href="{about_link}">About</a>
         </nav>
         <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="Switch to nighttime" title="Switch to nighttime">
           <span class="theme-toggle-icon" data-theme-toggle-icon aria-hidden="true">☾</span>
@@ -242,8 +250,8 @@ def page_shell(title: str, content: str, path: str = "/", description: str = "")
 
 def render_home(doc: Document, entries: List[Document]) -> str:
     content = f"""
-<main>
-  <h1>{html.escape(doc.title)}</h1>
+<main id="about">
+  <h1 class="visually-hidden">{html.escape(doc.title)}</h1>
   {doc.html_body}
 </main>
 """

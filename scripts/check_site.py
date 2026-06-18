@@ -15,11 +15,14 @@ def target_for_href(href: str) -> Path | None:
     parsed = urlparse(href)
     if parsed.scheme or parsed.netloc or href.startswith("#") or href.startswith("mailto:"):
         return None
-    if href.startswith("/"):
-        path = PUBLIC / href.lstrip("/")
+    href_path = parsed.path
+    if not href_path:
+        return None
+    if href_path.startswith("/"):
+        path = PUBLIC / href_path.lstrip("/")
     else:
-        path = PUBLIC / href
-    if href.endswith("/"):
+        path = PUBLIC / href_path
+    if href_path.endswith("/"):
         return path / "index.html"
     if path.suffix:
         return path
@@ -51,4 +54,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
-

@@ -16,7 +16,7 @@
   --toggle-icon: #8c8174;
   --max: 760px;
   --sans: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --serif: Georgia, "Times New Roman", serif;
+  --serif: Cochin, Georgia, serif;
   color-scheme: light;
 }
 
@@ -143,6 +143,18 @@ a:hover {
 .theme-toggle-icon {
   display: block;
   line-height: 1;
+}
+
+.visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 }
 
 .eyebrow,
