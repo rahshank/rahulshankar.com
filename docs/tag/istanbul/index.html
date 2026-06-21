@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Istanbul - Rahul Shankar</title>
+  <meta name="description" content="Writing and notebook entries tagged Istanbul.">
+  <link rel="canonical" href="https://rahulshankar.com/tag/istanbul/">
+  <link rel="alternate" type="application/rss+xml" title="Rahul Shankar" href="/rss.xml">
+  <script>
+    (function () {
+      try {
+        var savedTheme = localStorage.getItem("site-theme");
+        var prefersNight = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.dataset.theme = savedTheme || (prefersNight ? "night" : "day");
+      } catch (error) {
+        document.documentElement.dataset.theme = "day";
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <div class="site">
+    <header class="masthead">
+      <a class="brand" href="/">Rahul Shankar</a>
+      <div class="masthead-actions">
+        <nav class="nav" aria-label="Primary">
+          <a href="/#notebook">Notebook</a>
+          <a href="/#writing">Writing</a>
+          <a href="/#about">About</a>
+        </nav>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="Switch to nighttime" title="Switch to nighttime">
+          <span class="theme-toggle-icon" data-theme-toggle-icon aria-hidden="true">☾</span>
+        </button>
+      </div>
+    </header>
+
+<main>
+  <h1>Istanbul</h1>
+  <ul><li><a href="/beijing/">A week in Beijing</a> <span class="meta">2024-01-08</span><p>An itinerary and some things I found useful from a trip to Beijing with short layovers in Istanbul.</p><p class="entry-topics"><a href="/tag/travel/">travel</a>, <a href="/tag/architecture/">architecture</a>, <a href="/tag/art/">art</a>, <a href="/tag/spaces/">spaces</a>, <a href="/tag/china/">China</a>, <a href="/tag/beijing/">Beijing</a>, <a href="/tag/turkey/">Turkey</a>, <a href="/tag/istanbul/">Istanbul</a>, <a href="/tag/language/">language</a></p></li></ul>
+</main>
+
+    <footer class="footer">Rahul Shankar</footer>
+  </div>
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var button = document.querySelector("[data-theme-toggle]");
+      var icon = document.querySelector("[data-theme-toggle-icon]");
+      var media = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+
+      function applyTheme(theme, persist) {
+        root.dataset.theme = theme;
+        if (persist) {
+          localStorage.setItem("site-theme", theme);
+        }
+        if (!button || !icon) {
+          return;
+        }
+        var isNight = theme === "night";
+        icon.textContent = isNight ? "☀" : "☾";
+        button.setAttribute("aria-pressed", String(isNight));
+        button.setAttribute("aria-label", isNight ? "Switch to daytime" : "Switch to nighttime");
+        button.setAttribute("title", isNight ? "Switch to daytime" : "Switch to nighttime");
+      }
+
+      applyTheme(root.dataset.theme || "day", false);
+
+      if (button) {
+        button.addEventListener("click", function () {
+          applyTheme(root.dataset.theme === "night" ? "day" : "night", true);
+        });
+      }
+
+      if (media) {
+        media.addEventListener("change", function (event) {
+          if (!localStorage.getItem("site-theme")) {
+            applyTheme(event.matches ? "night" : "day", false);
+          }
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

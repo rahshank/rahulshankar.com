@@ -138,6 +138,10 @@ class Document:
     def url_path(self) -> str:
         return "/" if self.slug == "" else f"/{self.slug}/"
 
+    @property
+    def topics(self) -> List[str]:
+        return split_topics(self.meta.get("topics", ""))
+
 
 def parse_document(path: Path) -> Document:
     raw = path.read_text(encoding="utf-8")
@@ -207,6 +211,35 @@ def inline(text: str) -> str:
     return escaped
 
 
+def split_topics(raw_topics: str) -> List[str]:
+    return [topic.strip() for topic in raw_topics.split(",") if topic.strip()]
+
+
+def topic_slug(topic: str) -> str:
+    slug = re.sub(r"[^a-z0-9]+", "-", topic.lower()).strip("-")
+    return slug or "topic"
+
+
+def topic_url(topic: str) -> str:
+    return site_path(f"/tag/{topic_slug(topic)}/")
+
+
+def topic_links(topics: List[str]) -> str:
+    return ", ".join(
+        f'<a href="{html.escape(topic_url(topic), quote=True)}">{html.escape(topic)}</a>'
+        for topic in topics
+    )
+
+
+def article_meta(doc: Document, link_topics: bool = True) -> str:
+    bits = []
+    if doc.meta.get("date"):
+        bits.append(html.escape(doc.meta["date"]))
+    if doc.topics:
+        bits.append(topic_links(doc.topics) if link_topics else html.escape(", ".join(doc.topics)))
+    return " · ".join(bits)
+
+
 def page_shell(title: str, content: str, path: str = "/", description: str = "") -> str:
     full_title = SITE_TITLE if title == SITE_TITLE else f"{title} - {SITE_TITLE}"
     desc = html.escape(description or "Personal website of Rahul Shankar.", quote=True)
@@ -246,7 +279,7 @@ def page_shell(title: str, content: str, path: str = "/", description: str = "")
         </button>
       </div>
     </header>
-    {content}
+{content}
     <footer class="footer">Rahul Shankar</footer>
   </div>
 {THEME_CONTROL_SCRIPT}
@@ -275,10 +308,7 @@ def render_page(doc: Document) -> str:
     return page_shell(doc.title, content, doc.url_path, doc.meta.get("summary", ""))
 
 
-def render_article(doc: Document) -> str:
-    topics = doc.meta.get("topics", "")
-    meta_bits = [doc.meta.get("date", ""), topics]
-    meta_line = " · ".join(bit for bit in meta_bits if bit)
+def render_article(doc: Document, link_topics: bool = True) -> str:
     hero = ""
     if doc.meta.get("hero_image"):
         hero = (
@@ -289,7 +319,7 @@ def render_article(doc: Document) -> str:
             hero += f'\n  <p class="caption">{html.escape(doc.meta["hero_caption"])}</p>'
     content = f"""
 <article>
-  <p class="meta">{html.escape(meta_line)}</p>
+  <p class="meta">{article_meta(doc, link_topics)}</p>
   <h1 class="article-title">{html.escape(doc.title)}</h1>
   {hero}
   {doc.html_body}
@@ -298,13 +328,10 @@ def render_article(doc: Document) -> str:
     return page_shell(doc.title, content, doc.url_path, doc.meta.get("summary", ""))
 
 
-def render_visual_note(doc: Document) -> str:
-    topics = doc.meta.get("topics", "")
-    meta_bits = [doc.meta.get("date", ""), topics]
-    meta_line = " · ".join(bit for bit in meta_bits if bit)
+def render_visual_note(doc: Document, link_topics: bool = True) -> str:
     content = f"""
 <article class="visual-note">
-  <p class="meta">{html.escape(meta_line)}</p>
+  <p class="meta">{article_meta(doc, link_topics)}</p>
   <h1 class="article-title">{html.escape(doc.title)}</h1>
   {doc.html_body}
 </article>
@@ -329,6 +356,17 @@ def copy_assets() -> None:
     shutil.copytree(src, dst)
 
 
+def render_collection_item(entry: Document) -> str:
+    topic_line = topic_links(entry.topics)
+    topics_html = f'<p class="entry-topics">{topic_line}</p>' if topic_line else ""
+    return (
+        f'<li><a href="{site_path(entry.url_path)}">{html.escape(entry.title)}</a>'
+        f' <span class="meta">{html.escape(entry.meta.get("date", ""))}</span>'
+        f'<p>{html.escape(entry.meta.get("summary", ""))}</p>'
+        f"{topics_html}</li>"
+    )
+
+
 def render_collection_index(
     title: str,
     slug: str,
@@ -336,9 +374,7 @@ def render_collection_index(
     entries: List[Document],
 ) -> None:
     items = "\n".join(
-        f'<li><a href="{site_path(entry.url_path)}">{html.escape(entry.title)}</a>'
-        f' <span class="meta">{html.escape(entry.meta.get("date", ""))}</span>'
-        f'<p>{html.escape(entry.meta.get("summary", ""))}</p></li>'
+        render_collection_item(entry)
         for entry in sorted(entries, key=lambda item: item.meta.get("date", ""), reverse=True)
     )
     content = f"""
@@ -355,6 +391,47 @@ def render_collection_index(
     )
 
 
+def render_tag_indexes(entries: List[Document]) -> None:
+    labels: Dict[str, str] = {}
+    groups: Dict[str, List[Document]] = {}
+    for entry in entries:
+        seen_for_entry = set()
+        for topic in entry.topics:
+            slug = topic_slug(topic)
+            if slug in seen_for_entry:
+                continue
+            seen_for_entry.add(slug)
+            labels.setdefault(slug, topic)
+            groups.setdefault(slug, []).append(entry)
+
+    tag_items = "\n".join(
+        f'<li><a href="{site_path(f"/tag/{slug}/")}">{html.escape(labels[slug])}</a>'
+        f' <span class="meta">{len(groups[slug])} {"entry" if len(groups[slug]) == 1 else "entries"}</span></li>'
+        for slug in sorted(groups, key=lambda value: labels[value].lower())
+    )
+    tag_index = f"""
+<main>
+  <h1>Tags</h1>
+  <ul>{tag_items}</ul>
+</main>
+"""
+    out = PUBLIC / "tag" / "index.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(
+        page_shell("Tags", tag_index, "/tag/", "Tags used across Rahul Shankar's writing and notebook."),
+        encoding="utf-8",
+    )
+
+    for slug in sorted(groups, key=lambda value: labels[value].lower()):
+        label = labels[slug]
+        render_collection_index(
+            label,
+            f"tag/{slug}",
+            f"Writing and notebook entries tagged {label}.",
+            groups[slug],
+        )
+
+
 def render_rss(entries: List[Document]) -> None:
     items = "\n".join(
         f"""  <item>
@@ -362,6 +439,7 @@ def render_rss(entries: List[Document]) -> None:
     <link>{SITE_URL}{entry.url_path}</link>
     <guid>{SITE_URL}{entry.url_path}</guid>
     <pubDate>{html.escape(entry.meta.get("date", ""))}</pubDate>
+{chr(10).join(f"    <category>{html.escape(topic)}</category>" for topic in entry.topics)}
     <description>{html.escape(entry.meta.get("summary", ""))}</description>
   </item>"""
         for entry in sorted(entries, key=lambda item: item.meta.get("date", ""), reverse=True)
@@ -406,7 +484,7 @@ def main() -> None:
         if template == "home":
             html_text = render_home(page, entries)
         elif template == "visual_note":
-            html_text = render_visual_note(page)
+            html_text = render_visual_note(page, link_topics=False)
         else:
             html_text = render_page(page)
         write_output(page, html_text)
@@ -423,8 +501,9 @@ def main() -> None:
         "Field notes, observations, and shorter public fragments by Rahul Shankar.",
         notes,
     )
+    render_tag_indexes(entries)
     render_rss(entries)
-    print(f"Built {len(pages)} pages, {len(posts)} posts, and {len(notes)} notes into {PUBLIC}")
+    print(f"Built {len(pages)} pages, {len(posts)} posts, {len(notes)} notes, and tag indexes into {PUBLIC}")
 
 
 if __name__ == "__main__":

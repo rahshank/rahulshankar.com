@@ -38,7 +38,7 @@ Private planning, inspiration, and backlog notes live beside this repo in `../wo
 
 Do not put private planning, inspiration, or unfinished experiment notes in this repo. Keep public-site files here; keep working notes in `../workbench/`.
 
-The site now has `source/notes/` plus a generated `/notebook/` index for short observations, travel notes, and public field notes.
+The site now has `source/notes/` plus a generated `/notebook/` index for short observations, travel notes, and public field notes. Article `topics` are parsed as public tags: topic links point to generated pages under `/tag/<slug>/`, and `/tag/` lists the full tag index.
 
 ## Information architecture
 The current target navigation is:
@@ -47,6 +47,7 @@ The current target navigation is:
 | --- | --- |
 | `Writing` | Longer essays and the migrated Ghost archive |
 | `Notebook` | Shorter field notes, observations, travel notes, aesthetic notes, and public fragments from Fieldwork |
+| `Tags` | Generated topic archives for cross-linking related writing and notebook entries |
 | `About` | Current intro, biography, and project orientation |
 
 `A week in Beijing` now lives in `Notebook` while keeping its original `/beijing/` URL.
@@ -134,6 +135,7 @@ Preview the generated site locally from the Fieldwork root:
 ```
 
 ## Change log
+- 2026-06-21: Added generated tag pages from article `topics`, with clickable topic metadata on article and collection pages.
 - 2026-06-17: Clarified the private-workbench boundary and switched routine preview/check docs to the Fieldwork wrapper.
 - 2026-06-17: Moved the public website repo under `personal-site/publish/` and removed private `workbench/` notes from the repo boundary.
 - 2026-06-17: Added the site-specific completion rule: publishable work is not done until it is live and checked, or explicitly held local.

@@ -165,6 +165,15 @@ a:hover {
   font-size: 0.82rem;
 }
 
+.meta a {
+  color: inherit;
+  text-decoration-color: var(--line);
+}
+
+.meta a:hover {
+  color: var(--accent-warm);
+}
+
 .eyebrow {
   color: var(--accent-warm);
   font-weight: 700;
@@ -224,6 +233,21 @@ main > ul p {
   color: var(--muted);
   font-size: 0.92rem;
   margin: 0.3rem 0 0;
+}
+
+main > ul .entry-topics {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  margin-top: 0.18rem;
+}
+
+.entry-topics a {
+  color: var(--muted);
+  text-decoration-color: var(--line);
+}
+
+.entry-topics a:hover {
+  color: var(--accent-warm);
 }
 
 blockquote {
