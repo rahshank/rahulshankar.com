@@ -16,20 +16,20 @@ SOURCE = ROOT / "source"
 POSTS = SOURCE / "posts"
 PAGES = SOURCE / "pages"
 IMAGES = SOURCE / "assets" / "images" / "ghost"
-RAW = ROOT / "raw" / "ghost-public"
+RAW = ROOT.parent / "workbench" / "raw" / "ghost-public"
 
 API = "https://rahul-shankar.ghost.io/ghost/api/content"
 KEY = "efc942fd5b9d82e7d2bad2b3f3"
 
 
 def fetch_json(url: str) -> dict:
-    req = Request(url, headers={"User-Agent": "Fieldwork static-site importer"})
+    req = Request(url, headers={"User-Agent": "rahulshankar.com static-site importer"})
     with urlopen(req, timeout=30) as response:
         return json.load(response)
 
 
 def fetch_bytes(url: str) -> bytes:
-    req = Request(url, headers={"User-Agent": "Fieldwork static-site importer"})
+    req = Request(url, headers={"User-Agent": "rahulshankar.com static-site importer"})
     with urlopen(req, timeout=30) as response:
         return response.read()
 
