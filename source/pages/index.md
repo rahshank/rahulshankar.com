@@ -18,6 +18,8 @@ summary: I run Ghosts of Bombay. I grew up in Bombay and have lived in Detroit f
 - [Recipes | Ammumma's garam masala](/ammummas-garam-masala/)
 - [Identity / frame](/identity-frame/)
 
+[All writing](/writing/)
+
 ## About
 
 Hey, I'm Rahul. I grew up in Bombay, moved to the United States in my early twenties, and have been based in Detroit for roughly seventeen years. If you ask me why Detroit, I can usually make a better case over dinner than in a paragraph.
