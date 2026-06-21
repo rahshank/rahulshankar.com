@@ -7,6 +7,7 @@ summary: I run Ghosts of Bombay. I grew up in Bombay and have lived in Detroit f
 
 ## Notebook
 
+- [A field note on shared context and AI work](/shared-context-ai-work/)
 - [A week in Beijing](/beijing/)
 
 ## Writing

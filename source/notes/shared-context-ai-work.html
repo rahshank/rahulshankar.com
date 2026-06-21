@@ -1,0 +1,113 @@
+---
+title: A field note on shared context and AI work
+slug: shared-context-ai-work
+date: 2026-06-21
+updated: 2026-06-21
+author: Rahul Shankar
+topics: AI, agents, technology
+summary: A pattern for managing professional, personal, research, or creative work with an AI agent through a small shared blackboard.
+template: article
+body_format: html
+---
+
+<p>A pattern for managing professional, personal, research, or creative work with an AI agent through a small shared "blackboard."</p>
+
+<figure class="kg-card kg-image-card">
+  <img class="kg-image" src="/assets/images/board-work/shared-board-orientation.png" alt="Codex thread orienting itself from the Fieldwork board">
+</figure>
+
+<hr>
+
+<p>Most AI-assisted work still lives in chat. Chat is good for conversation, but weak as the only working memory. Important context gets trapped in threads: what matters now, what changed last time, which decision is still open, and where the actual work lives. This gets worse when you are managing a portfolio of work.</p>
+
+<p>The "board" was my workaround for that problem. It gives me and AI one shared surface to see the live state of the work. One chat can leave a trace; a later chat can read that trace and continue from there. The continuity lives in the working environment and not just one conversation.</p>
+
+<p>The <a href="https://gist.github.com/rahshank/41c4e60f260b0191063840637881971f">Shared Context Board gist</a> is the portable version of the pattern. You can point your own agent at it and ask it to create a version that fits your work. Here is some more history and context on how we got there.</p>
+
+<h2>January - Agents, context, memory</h2>
+
+<p>A challenge I was facing in January of this year was navigating the latest step change in agentic work, workflows, and agentic development.</p>
+
+<p>If I recollect right, and it is hard to keep track these days, December 2025 was when we were hit with the newest level of maturity in products like Claude Code, and then Codex. At that time, a lot of the narrative, and a lot of what people were playing with, centered around two related themes.</p>
+
+<p>The first was: how do we create the best agents possible? The most efficient agents, the most productive agents, agents that can interact with each other. What are the best prompts? Etc, etc.</p>
+
+<p>The second was the challenge of context and memory.</p>
+
+<p>The previous way of working, which for me meant multiple ChatGPT or Claude chat threads, even when they occurred inside the construct of a project, felt brittle. It continued the old problem of memory and context not being a predictable mechanism. It was hit or miss whether a thread, or a query, remembered the right past context unless you could provide that specific query with all the right details. Even if you designed a great new Claude Code agent, this challenge seemed to persist.</p>
+
+<p>What I was looking at, as someone who by then had been using Codex heavily for about a month in my day-to-day work, was with a version of that problem.</p>
+
+<p>I was using Codex in a product leadership capacity: product research, running a couple of engineering teams, determining the operating model for our team, working with vendors, doing some hands-on development, and managing a lot of parallel threads of context and decision-making. Add to this the usual mess of emails, Teams/Slack threads and more. Just the stuff you have to do when you are running teams and multiple products.</p>
+
+<h2>Petri dishes, not factories</h2>
+
+<p>Then, in early February, I came across two pieces by Ben Follington: "Petri Dishes, Not Factories" and "Design the Environment, Not the Agent."<sup><a href="#note-1">1</a></sup><sup><a href="#note-2">2</a></sup> The names do their job for themselves.</p>
+
+<p>The idea, roughly, is that instead of spending all your energy on very specific agents that do very specific things and need a lot of specific direction, you design the environment. The operator (you, the human) and the agents then figure out how to operate within that environment.</p>
+
+<p>The way Ben was using this was different from my specific use case. His focus was using Claude Code to build software. He used an approach he called a blackboard. A blackboard was essentially a shared context space between Claude Code sessions and subagents.</p>
+
+<p>The way he put it was that the goal is "session-independence for agentic coding. Never cling to a context window or terminal tab because the context is already saved".</p>
+
+<p>My workflow is not about writing code, though occasionally I am doing that too. I pointed Codex at Ben's articles and at his <code>claude-blackboard</code> GitHub repository,<sup><a href="#note-3">3</a></sup> and some other specificities of my working environment to design a blackboard pattern for myself.</p>
+
+<p>What emerged was a way of working that carries the right amount of context across all the threads of activity, topics, and projects I might be managing at a particular period of time.</p>
+
+<p>A colleague who I demoed this to said something like, "what you have here is a bit like a living organism."</p>
+
+<p>The practical goal was simple: each time I spin up a new thread of activity, whether in a new chat with Codex, Claude Code, or whatever the tool of choice is, the agent can pick up from the board. The board gives the agent the context of where to start, what it might be continuing, where in the folder structure it should look, what is active, what decision is open, and where the real artifact lives.</p>
+
+<p>This started as an experiment. Now, five months in, it has definitely moved from experiment to working habit. I started with a version for work and then replicated it on my personal device for personal workflows, research, and projects. It gives me a way to manage many live threads without having to remind AI of the same basic state every single time. I started with just Codex. Now both Codex and Claude Code agents know they are working in this shared context space, sometimes on different parts of the same topic.</p>
+
+<h2>Stigmergy</h2>
+
+<p>More recently, the term stigmergy re-entered the vernacular for me. This came through some of Venkatesh Rao's material and the Protocolized environment around him.<sup><a href="#note-4">4</a></sup> Their writing led me back to the term, and as they call out in some of that work, a lot of people seem to be independently discovering, or rediscovering, the same concept and its applicability to AI-agent-related work.</p>
+
+<p>Stigmergy, in the quick version, is coordination through traces left in a shared environment. One participant changes the environment. That change becomes a signal, memory, affordance, or trigger for another participant later.</p>
+
+<p>In this setup, the board is the stigmergic surface. It carries the traces that let separate agents and separate conversations coordinate.</p>
+
+<h2>A quick literature trail</h2>
+
+<p>A quick scan of the literature points to a useful lineage. The canonical source appears to be Pierre-Paul Grasse's 1959 work on termite nest construction, where the activity of one insect changes the environment in a way that guides later activity.<sup><a href="#note-5">5</a></sup> The later artificial-life and swarm-intelligence lineage includes Guy Theraulaz and Eric Bonabeau's "A Brief History of Stigmergy."<sup><a href="#note-6">6</a></sup> Francis Heylighen later generalizes stigmergy as a broader coordination mechanism across biological, social, and technical systems.<sup><a href="#note-7">7</a></sup> For web collaboration, Mark Elliott's work on stigmergic collaboration is a useful bridge into wikis, open source, and group work.<sup><a href="#note-8">8</a></sup></p>
+
+<p>Blackboard systems are related, though not identical, but close enough for my purposes and inspiration. The classic AI lineage here is the Hearsay-II speech-understanding system, where different specialist knowledge sources interacted through a common blackboard state.<sup><a href="#note-9">9</a></sup> The part that mattered for me was simpler: if the state of the work is visible in the environment, separate agents and separate sessions can orient themselves without one long chat carrying the whole thing.</p>
+
+<h2>The working pattern</h2>
+
+<p>The <a href="https://gist.github.com/rahshank/41c4e60f260b0191063840637881971f">Shared Context Board gist</a> lays out the fuller version. A few pieces matter most.</p>
+
+<p>I can start a new conversation with something like "pick back up on the research question" or "what's the latest in our culinary research threads?" The agent reads the board, finds the relevant focus, opens the right files, and works from there. One chat can leave a trace; a later chat can read that trace and continue from there.</p>
+
+<figure class="kg-card kg-image-card">
+  <img class="kg-image" src="/assets/images/board-work/shared-board-answer.png" alt="Codex answer showing board-linked research threads and next action">
+</figure>
+
+<p>The board sits between me, the agent, and the files. It keeps the live state visible: what bodies of work are active, what state each one is in, what decision or judgment is needed next, and where the current source of truth or deliverable lives.</p>
+
+<p>The actual work still lives where it belongs: documents, notes, source files, spreadsheets, drafts, research artifacts. The board tells the next agent where to look and what kind of work it is walking into.</p>
+
+<p>The grammar I have been using is: arena, focus, thread, breadcrumb, decision, deliverable. The exact words matter less than the pattern: name the body of work, keep the real artifact in the right place, and leave a short trace of what changed and what should happen next.</p>
+
+<p>The board has made working with AI feel less like a sequence of separate conversations and more like an evolving workspace I can return to.</p>
+
+<h2>Notes</h2>
+
+<p id="note-1"><sup>1</sup> Ben Follington, "Petri Dishes, Not Factories": <a href="https://nichecraft.substack.com/p/petri-dishes-not-factories">https://nichecraft.substack.com/p/petri-dishes-not-factories</a></p>
+
+<p id="note-2"><sup>2</sup> Ben Follington, "Design the Environment, Not the Agent": <a href="https://nichecraft.substack.com/p/design-the-environment-not-the-agent">https://nichecraft.substack.com/p/design-the-environment-not-the-agent</a></p>
+
+<p id="note-3"><sup>3</sup> Ben Follington, <code>claude-blackboard</code>: <a href="https://github.com/bfollington/claude-blackboard">https://github.com/bfollington/claude-blackboard</a></p>
+
+<p id="note-4"><sup>4</sup> Protocolized, "Jamverse Jam," 2026-06-16: <a href="https://protocolized.summerofprotocols.com/p/jamverse-jam">https://protocolized.summerofprotocols.com/p/jamverse-jam</a></p>
+
+<p id="note-5"><sup>5</sup> Pierre-Paul Grasse, "La reconstruction du nid et les coordinations interindividuelles chez Bellicositermes natalensis et Cubitermes sp. La theorie de la stigmergie," 1959: <a href="https://doi.org/10.1007/BF02223791">https://doi.org/10.1007/BF02223791</a></p>
+
+<p id="note-6"><sup>6</sup> Guy Theraulaz and Eric Bonabeau, "A Brief History of Stigmergy," 1999: <a href="https://doi.org/10.1162/106454699568700">https://doi.org/10.1162/106454699568700</a></p>
+
+<p id="note-7"><sup>7</sup> Francis Heylighen, "Stigmergy as a universal coordination mechanism I: Definition and components," 2016: <a href="https://doi.org/10.1016/j.cogsys.2015.12.002">https://doi.org/10.1016/j.cogsys.2015.12.002</a></p>
+
+<p id="note-8"><sup>8</sup> Mark Elliott, "Stigmergic Collaboration: The Evolution of Group Work," 2006: <a href="https://doi.org/10.5204/mcj.2599">https://doi.org/10.5204/mcj.2599</a></p>
+
+<p id="note-9"><sup>9</sup> Lee D. Erman, Frederick Hayes-Roth, Victor R. Lesser, and D. Raj Reddy, "The Hearsay-II Speech-Understanding System: Integrating Knowledge to Resolve Uncertainty," 1980: <a href="https://doi.org/10.1145/356810.356816">https://doi.org/10.1145/356810.356816</a></p>
