@@ -257,6 +257,13 @@ blockquote {
   padding-left: 1rem;
 }
 
+.article-verse {
+  color: var(--quote-ink);
+  font-style: normal;
+  line-height: 1.72;
+  margin: 0 0 2rem;
+}
+
 .article-title {
   margin-top: 8px;
 }
